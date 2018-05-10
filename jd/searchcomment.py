@@ -107,7 +107,7 @@ class SearchComment(threading.Thread):
                         try:
                             print('◆◆◆◆◆◆%s线程,开始网络请求ID[%s]请求◆◆◆◆◆◆'%(self.threadx,goodsid))
                             res = requests.get(url,headers=headers,cookies=cookies,timeout=10).text
-                            commentVersion = ''.join(re.compile('commentVersion:\'(\d+)\'').findall(res)).strip()
+                            commentVersion = ''.join(re.compile(r'commentVersion:\'(\d+)\'').findall(res)).strip()
                             # print(res)
                             return commentVersion
                         except Exception as e:
@@ -178,7 +178,7 @@ class SearchComment(threading.Thread):
                     params =param()
                     res = requests.get(self.url,params=params,headers=headers,cookies=cookies,proxies=proxies,timeout=10)
                     # print(res.content)
-                    data_1 = ''.join(re.compile('%s\((.*?)\);'%callback,re.S).findall(res.text))
+                    data_1 = ''.join(re.compile(r'%s\((.*?)\);'%callback,re.S).findall(res.text))
                     # print(data_1)
                     have = 0
                     try:
