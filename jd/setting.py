@@ -16,8 +16,8 @@ import re
 import sys
 import requests
 #添加代理池模块
-sys.path.append('C:\\Users\\Administrator\\Desktop\\python_pro\\jd\\ProxyPool_master')
-from ProxyPool_master.run import main
+# sys.path.append('C:\\Users\\Administrator\\Desktop\\python_pro\\jd\\ProxyPool_master')
+# from ProxyPool_master.run import main
 
 
 #开启多线程数量
@@ -69,7 +69,7 @@ def getcookies(url):
         for cookie in cookie_list:
             key,value = cookie['name'],cookie['value']
             cookies[key] = value
-        re_1 = 'page_count:\"(\d+)\"'
+        re_1 = r'page_count:\"(\d+)\"'
         html = driver.page_source
         #获得搜索的最大页,goodid搜索项
         page_count = ''.join(re.compile(re_1).findall(html))
@@ -85,7 +85,7 @@ def getcookies(url):
     # driver.quit() driver.close()
 
 #开启代理池
-main()
+# main()
 #获得代理
 PROXY_POOL_URL = 'http://localhost:5000/get'
 def getproxies():
