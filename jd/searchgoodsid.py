@@ -172,8 +172,8 @@ class SearchGoods(threading.Thread):
     #解析后半部分所需API参数
     def parse_request_end_args(self,datas):
         if datas:
-            re_showitem = 'li class=\"gl-item\" data-sku=.*?data-pid=\"(\d+)\">'
-            re_log_id = 'log_id=\"(\d+\.\d+)\"'
+            re_showitem = r'li class=\"gl-item\" data-sku=.*?data-pid=\"(\d+)\">'
+            re_log_id = r'log_id=\"(\d+\.\d+)\"'
             show_items = ','.join(re.compile(re_showitem,re.S).findall(datas))
             log_id = ''.join(re.compile(re_log_id).findall(datas))
             # print(show_items,log_id)
@@ -182,15 +182,15 @@ class SearchGoods(threading.Thread):
     #提取商品ID
     def parse_goods_args(self,datas):
         if datas:
-            re_goods = 'li class=\"gl-item\" (data-sku=.*?)\s+</div>\s+</div>\s+</li>'
+            re_goods = r'li class=\"gl-item\" (data-sku=.*?)\s+</div>\s+</div>\s+</li>'
             goods = re.compile(re_goods,re.S).findall(datas)
             # print(len(goods))
             num = 0
             add_num = 0
             for good in goods:
-                re_goods_id = 'data-sku=\"(\d+)\" data-spu='
-                re_goods_price = '<em>￥</em><i>(.*?)</i>' #不用数字,防止价格缺失
-                re_shop_url = 'href=\"(//mall\.jd\.com/index-\d+\.html)\"'
+                re_goods_id = r'data-sku=\"(\d+)\" data-spu='
+                re_goods_price = r'<em>￥</em><i>(.*?)</i>' #不用数字,防止价格缺失
+                re_shop_url = r'href=\"(//mall\.jd\.com/index-\d+\.html)\"'
                 goods_id = ''.join(re.compile(re_goods_id).findall(good)) #商品id
                 goods_price = ''.join(re.compile(re_goods_price).findall(good)) #商品价格
                 shop_url = ''.join(re.compile(re_shop_url).findall(good)) #商品对应店铺网址
